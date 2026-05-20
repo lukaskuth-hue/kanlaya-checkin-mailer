@@ -24,6 +24,8 @@ from __future__ import annotations
 import os
 import sys
 import json
+import secrets
+import urllib.parse
 import argparse
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -40,10 +42,17 @@ FOLLOWUP_DELAY_MIN = 90
 FAILSAFE_WINDOW_HOURS = 24
 MAX_RETRIES = 3
 
-BONUS_CODE = "WIEDERSEHEN10"
-FRESHA_LINK = "https://www.fresha.com/p/kanlaya-moller-6281320?share=true&pId=2852347"
+BONUS_REDEEM_BASE = "https://kanlaya-massagepraxis.berlin/buchen-bonus.php?t="
 GOOGLE_REVIEW_LINK = "https://g.page/r/CZS7MhobLjedEBM/review"
+KANLAYA_HOMEPAGE = "https://kanlaya-massagepraxis.berlin/"
+PORTRAIT_URL = "https://kanlaya-massagepraxis.berlin/assets/kanlaya-portrait.jpg"
 UNSUBSCRIBE_LINK = "https://kanlaya-massagepraxis.berlin/unsubscribe.php?email={email}"
+
+REFERRAL_TEXT = (
+    "Hi! Ich war gerade bei Kanlaya Thai Massage in Charlottenburg. "
+    "Falls du echte traditionelle Thai-Massage suchst: kann ich nur empfehlen. "
+    "Hier ihre Seite: " + KANLAYA_HOMEPAGE
+)
 
 
 def env(key: str, default: str | None = None, required: bool = False) -> str:
@@ -125,19 +134,41 @@ def extract_row(page: dict) -> dict | None:
     }
 
 
-def render_mail(env_jinja: Environment, vorname: str, email: str) -> tuple[str, str]:
+def render_mail(env_jinja: Environment, vorname: str, email: str, bonus_token: str) -> tuple[str, str]:
     """Return (subject, html)."""
     template = env_jinja.get_template("bonus_mail.html")
+    wa_text = urllib.parse.quote(REFERRAL_TEXT)
+    mail_subject = urllib.parse.quote("Empfehlung: Kanlaya Thai Massage Berlin")
+    mail_body = urllib.parse.quote(REFERRAL_TEXT)
     html = template.render(
         vorname=vorname or "lieber Gast",
-        bonus_code=BONUS_CODE,
-        fresha_link=FRESHA_LINK,
+        bonus_link=BONUS_REDEEM_BASE + bonus_token,
         google_review_link=GOOGLE_REVIEW_LINK,
+        portrait_url=PORTRAIT_URL,
+        kanlaya_homepage=KANLAYA_HOMEPAGE,
+        whatsapp_share_link=f"https://wa.me/?text={wa_text}",
+        mail_share_link=f"mailto:?subject={mail_subject}&body={mail_body}",
         unsubscribe_link=UNSUBSCRIBE_LINK.format(email=email),
         datum_de=datetime.now(timezone.utc).astimezone().strftime("%d.%m.%Y"),
     )
-    subject = f"Schön, dass Sie da waren — kleine Aufmerksamkeit von Kanlaya"
+    subject = "Schön, dass Sie da waren — kleine Aufmerksamkeit von Kanlaya"
     return subject, html
+
+
+def generate_bonus_token() -> str:
+    return secrets.token_urlsafe(16).replace("-", "").replace("_", "")[:16]
+
+
+def write_bonus_token(token_str: str, page_id: str, notion_token: str) -> None:
+    """Write Bonus-Token to Notion row so /buchen-bonus.php can look it up."""
+    body = {"properties": {"Bonus-Token": {"rich_text": [{"text": {"content": token_str}}]}}}
+    resp = requests.patch(
+        f"{NOTION_API}/pages/{page_id}",
+        headers=notion_headers(notion_token),
+        json=body,
+        timeout=15,
+    )
+    resp.raise_for_status()
 
 
 def send_brevo(api_key: str, sender_email: str, sender_name: str,
@@ -252,7 +283,10 @@ def main() -> int:
 
         recipient = test_recipient or row["email"]
         try:
-            subject, html = render_mail(env_jinja, row["vorname"], row["email"])
+            bonus_token = generate_bonus_token()
+            if not dry_run:
+                write_bonus_token(bonus_token, row["page_id"], notion_token)
+            subject, html = render_mail(env_jinja, row["vorname"], row["email"], bonus_token)
             if dry_run:
                 print(f"  DRY  {recipient} ({row['vorname']}) — would send '{subject}'")
             else:

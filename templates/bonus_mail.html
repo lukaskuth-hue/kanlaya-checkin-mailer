@@ -24,6 +24,8 @@
     .px-m { padding-left:24px !important; padding-right:24px !important; }
     .hl-display { font-size:34px !important; line-height:40px !important; }
     .big-num { font-size:120px !important; line-height:110px !important; }
+    .fluid-img { width:100% !important; height:auto !important; max-width:none !important; }
+    .stack { display:block !important; width:100% !important; padding:0 0 12px 0 !important; }
   }
 </style>
 </head>
@@ -31,7 +33,7 @@
 
 <!-- Preheader (versteckt) -->
 <div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
-  Eine kleine Aufmerksamkeit für Ihren nächsten Besuch — 10 € Bonus auf Ihre nächste Behandlung bei Kanlaya.
+  Eine kleine Aufmerksamkeit für Ihren nächsten Besuch — 10 € Bonus, ein Klick genügt.
 </div>
 
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#e5e0d4;">
@@ -52,12 +54,19 @@
           </td>
         </tr>
 
-        <!-- (2) Header -->
+        <!-- (2) Portrait Hero -->
+        <tr>
+          <td style="background-color:#ffffff;padding:0;font-size:0;line-height:0;">
+            <img src="{{ portrait_url }}" alt="Kanlaya" width="600" class="fluid-img" style="display:block;width:100%;max-width:600px;height:auto;" />
+          </td>
+        </tr>
+
+        <!-- (3) Header -->
         <tr>
           <td style="background-color:#ffffff;padding:0;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td class="px-m" style="padding:56px 56px 24px 56px;" valign="top">
+                <td class="px-m" style="padding:48px 56px 24px 56px;" valign="top">
                   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                     <tr>
                       <td valign="top" align="left" style="font-family:'Courier New',Courier,monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#5a6760;">
@@ -100,9 +109,9 @@
           </td>
         </tr>
 
-        <!-- (3) Bonus Hero — 200px Gold Number -->
+        <!-- (4) Bonus Hero — 10 € Number -->
         <tr>
-          <td class="px-m" style="background-color:#ffffff;padding:56px 56px 32px 56px;" align="center">
+          <td class="px-m" style="background-color:#ffffff;padding:56px 56px 18px 56px;" align="center">
             <table role="presentation" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td align="center" style="font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#B58946;padding-bottom:12px;">
@@ -116,64 +125,92 @@
               </tr>
               <tr>
                 <td align="center" style="padding-top:18px;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:23px;color:#5a6760;max-width:380px;">
-                  auf Ihre nächste Behandlung
+                  auf Ihre nächste Behandlung — ein Klick auf den Button genügt, wir ziehen die&nbsp;10&nbsp;€ beim Termin automatisch ab.
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- (5) CTA -->
+        <tr>
+          <td class="px-m" style="background-color:#ffffff;padding:18px 56px 56px 56px;" align="center">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td bgcolor="#1F4030" style="background-color:#1F4030;border-radius:2px;">
+                  <a href="{{ bonus_link }}" style="display:inline-block;padding:20px 50px;font-family:Helvetica,Arial,sans-serif;font-weight:400;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;">
+                    Bonus einlösen &amp; buchen
+                  </a>
                 </td>
               </tr>
               <tr>
-                <td align="center" style="padding-top:24px;">
+                <td align="center" style="padding-top:12px;font-family:'Courier New',Courier,monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#9aa39d;">
+                  Sie werden direkt zu Fresha weitergeleitet
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- (6) Empfehlungs-Block — Sand -->
+        <tr>
+          <td style="background-color:#faf6ec;padding:0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td class="px-m" style="padding:48px 56px 12px 56px;" align="center">
+                  <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#B58946;">Wenn es Ihnen gefallen hat</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 24px 56px;" align="center">
+                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:24px;line-height:32px;color:#1F4030;max-width:420px;">
+                    Empfehlen Sie uns weiter — die schönste Form der Anerkennung.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 12px 56px;" align="center">
                   <table role="presentation" cellpadding="0" cellspacing="0" border="0">
                     <tr>
-                      <td style="background-color:#faf6ec;border:1px dashed #B58946;padding:14px 28px;font-family:'Courier New',Courier,monospace;font-size:16px;letter-spacing:4px;color:#1F4030;">
-                        {{ bonus_code }}
+                      <td style="padding:0 8px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                          <tr>
+                            <td bgcolor="#25D366" style="background-color:#25D366;border-radius:2px;">
+                              <a href="{{ whatsapp_share_link }}" style="display:inline-block;padding:14px 24px;font-family:Helvetica,Arial,sans-serif;font-weight:500;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff;text-decoration:none;">
+                                Per WhatsApp teilen
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td style="padding:0 8px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                          <tr>
+                            <td bgcolor="#1F4030" style="background-color:#1F4030;border-radius:2px;">
+                              <a href="{{ mail_share_link }}" style="display:inline-block;padding:14px 24px;font-family:Helvetica,Arial,sans-serif;font-weight:500;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff;text-decoration:none;">
+                                Per Mail teilen
+                              </a>
+                            </td>
+                          </tr>
+                        </table>
                       </td>
                     </tr>
                   </table>
                 </td>
               </tr>
               <tr>
-                <td align="center" style="padding-top:10px;font-family:'Courier New',Courier,monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#9aa39d;">
-                  Code beim nächsten Besuch nennen &middot; einmal pro Person
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-
-        <!-- (4) CTA -->
-        <tr>
-          <td class="px-m" style="background-color:#ffffff;padding:8px 56px 56px 56px;" align="center">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td bgcolor="#1F4030" style="background-color:#1F4030;border-radius:2px;">
-                  <a href="{{ fresha_link }}" style="display:inline-block;padding:18px 44px;font-family:Helvetica,Arial,sans-serif;font-weight:400;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;">
-                    Termin buchen
-                  </a>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-
-        <!-- (5) Review Sekundär-Block -->
-        <tr>
-          <td style="background-color:#faf6ec;padding:0;">
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-              <tr>
-                <td class="px-m" style="padding:38px 56px;" align="center">
-                  <p style="margin:0 0 10px 0;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#B58946;">Falls Sie mögen</p>
-                  <p style="margin:0 0 18px 0;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:20px;line-height:28px;color:#1F4030;max-width:400px;">
-                    Eine kurze Google-Bewertung hilft uns enorm — und zeigt anderen, wie sich Kanlaya anfühlt.
+                <td class="px-m" style="padding:18px 56px 48px 56px;" align="center">
+                  <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:13px;line-height:21px;color:#5a6760;max-width:380px;">
+                    Oder eine kurze Google-Bewertung —
+                    <a href="{{ google_review_link }}" style="color:#1F4030;border-bottom:1px solid #B58946;padding-bottom:1px;">hier&nbsp;klicken</a>
                   </p>
-                  <a href="{{ google_review_link }}" style="font-family:Helvetica,Arial,sans-serif;font-size:13px;letter-spacing:1px;color:#1F4030;border-bottom:1px solid #B58946;padding-bottom:2px;">
-                    Bewertung schreiben →
-                  </a>
                 </td>
               </tr>
             </table>
           </td>
         </tr>
 
-        <!-- (6) Signature -->
+        <!-- (7) Signature -->
         <tr>
           <td class="px-m" style="background-color:#ffffff;padding:48px 56px 32px 56px;">
             <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:25px;color:#5a6760;">
@@ -185,7 +222,7 @@
           </td>
         </tr>
 
-        <!-- (7) Footer -->
+        <!-- (8) Footer -->
         <tr>
           <td style="background-color:#16301f;padding:0;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
