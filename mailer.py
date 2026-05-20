@@ -85,14 +85,23 @@ def query_pending(token: str, db_id: str, now_utc: datetime) -> list[dict]:
     """Find check-ins eligible for 90-min follow-up."""
     cutoff_old = (now_utc - timedelta(hours=FAILSAFE_WINDOW_HOURS)).isoformat()
     cutoff_new = (now_utc - timedelta(minutes=FOLLOWUP_DELAY_MIN)).isoformat()
+    # Hard cutoff: never send to check-ins from BEFORE this timestamp.
+    # Used to "skip everything that already exists" when the mailer goes live.
+    earliest = os.environ.get("EARLIEST_CHECKIN_ISO", "").strip()
+
+    date_filters = [
+        {"property": "Letzter Besuch", "date": {"on_or_after": cutoff_old}},
+        {"property": "Letzter Besuch", "date": {"on_or_before": cutoff_new}},
+    ]
+    if earliest:
+        date_filters.append({"property": "Letzter Besuch", "date": {"on_or_after": earliest}})
 
     filter_body = {
         "filter": {
             "and": [
                 {"property": "Marketing-Consent", "checkbox": {"equals": True}},
                 {"property": "Mail gesendet", "checkbox": {"equals": False}},
-                {"property": "Letzter Besuch", "date": {"on_or_after": cutoff_old}},
-                {"property": "Letzter Besuch", "date": {"on_or_before": cutoff_new}},
+                *date_filters,
             ]
         },
         "page_size": 50,

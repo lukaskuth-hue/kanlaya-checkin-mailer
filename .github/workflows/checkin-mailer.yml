@@ -45,4 +45,5 @@ jobs:
           TEST_RECIPIENT: ${{ github.event.inputs.test_recipient }}
           DRY_RUN: ${{ github.event.inputs.dry_run == 'true' && '1' || '' }}
           FOLLOWUP_DELAY_MIN: ${{ github.event.inputs.delay_minutes || '90' }}
+          EARLIEST_CHECKIN_ISO: ${{ secrets.EARLIEST_CHECKIN_ISO }}
         run: python mailer.py
