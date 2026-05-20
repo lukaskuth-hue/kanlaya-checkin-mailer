@@ -39,7 +39,9 @@ NOTION_VERSION = "2022-06-28"
 BREVO_API = "https://api.brevo.com/v3/smtp/email"
 
 FOLLOWUP_DELAY_MIN = int(os.environ.get("FOLLOWUP_DELAY_MIN", "90"))
-FAILSAFE_WINDOW_HOURS = 24
+# Hard rule: Check-ins, die länger her sind als (DELAY + WINDOW) bekommen KEINE Mail
+# mehr — sonst kommt die "90 Min später"-Mail Stunden später an, was unprofessionell wirkt.
+FAILSAFE_WINDOW_HOURS = 3
 MAX_RETRIES = 3
 
 FRESHA_LINK = "https://www.fresha.com/p/kanlaya-moller-6281320?share=true&pId=2852347"
