@@ -173,8 +173,8 @@ def render_mail(env_jinja: Environment, vorname: str, email: str) -> tuple[str, 
     )
     name = (vorname or "").strip()
     subject = (
-        f"Sawadee Khâ {name} — 5 € geschenkt für Ihren nächsten Besuch"
-        if name else "Sawadee Khâ — 5 € geschenkt für Ihren nächsten Besuch"
+        f"{name}, eine Bitte. Ein Geschenk. Ein Sawadee Khâ."
+        if name else "Eine Bitte. Ein Geschenk. Ein Sawadee Khâ."
     )
     return subject, html
 
