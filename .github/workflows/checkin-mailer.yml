@@ -13,6 +13,10 @@ on:
         description: "Test-Empfänger (überschreibt alle Empfänger)"
         required: false
         default: ""
+      delay_minutes:
+        description: "Min. Alter eines Check-ins, bevor Mail rausgeht (Default 90)"
+        required: false
+        default: "90"
 
 concurrency:
   group: checkin-mailer
@@ -40,4 +44,5 @@ jobs:
           ALERT_EMAIL: ${{ secrets.ALERT_EMAIL }}
           TEST_RECIPIENT: ${{ github.event.inputs.test_recipient }}
           DRY_RUN: ${{ github.event.inputs.dry_run == 'true' && '1' || '' }}
+          FOLLOWUP_DELAY_MIN: ${{ github.event.inputs.delay_minutes || '90' }}
         run: python mailer.py

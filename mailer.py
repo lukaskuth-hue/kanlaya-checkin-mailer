@@ -38,7 +38,7 @@ NOTION_API = "https://api.notion.com/v1"
 NOTION_VERSION = "2022-06-28"
 BREVO_API = "https://api.brevo.com/v3/smtp/email"
 
-FOLLOWUP_DELAY_MIN = 90
+FOLLOWUP_DELAY_MIN = int(os.environ.get("FOLLOWUP_DELAY_MIN", "90"))
 FAILSAFE_WINDOW_HOURS = 24
 MAX_RETRIES = 3
 
