@@ -42,16 +42,24 @@ FOLLOWUP_DELAY_MIN = int(os.environ.get("FOLLOWUP_DELAY_MIN", "90"))
 FAILSAFE_WINDOW_HOURS = 24
 MAX_RETRIES = 3
 
-BONUS_REDEEM_BASE = "https://kanlaya-massagepraxis.berlin/buchen-bonus.php?t="
+FRESHA_LINK = "https://www.fresha.com/p/kanlaya-moller-6281320?share=true&pId=2852347"
+FRESHA_REVIEW_LINK = "https://www.fresha.com/p/kanlaya-moller-6281320?share=true&pId=2852347#reviews"
 GOOGLE_REVIEW_LINK = "https://g.page/r/CZS7MhobLjedEBM/review"
 KANLAYA_HOMEPAGE = "https://kanlaya-massagepraxis.berlin/"
 PORTRAIT_URL = "https://kanlaya-massagepraxis.berlin/assets/kanlaya-portrait.jpg"
 UNSUBSCRIBE_LINK = "https://kanlaya-massagepraxis.berlin/unsubscribe.php?email={email}"
+INSTAGRAM_URL = "https://www.instagram.com/kanlaya_massage_berlin/"
+FACEBOOK_URL = "https://www.facebook.com/profile.php?id=61573274353769"
+INFO_MAIL = "info@kanlaya-massagepraxis.berlin"
+
+CODE_SELF = "ICHKOMMEWIEDER"           # 5 € für Mail-Empfänger bei Fresha-Buchung
+CODE_REFERRAL = "EMPFEHLUNG05"         # 5 € für den eingeladenen Freund
 
 REFERRAL_TEXT = (
-    "Hi! Ich war gerade bei Kanlaya Thai Massage in Charlottenburg. "
-    "Falls du echte traditionelle Thai-Massage suchst: kann ich nur empfehlen. "
-    "Hier ihre Seite: " + KANLAYA_HOMEPAGE
+    "Sawadee Khâ! Ich war gerade bei Kanlaya Thai Massage in Charlottenburg. "
+    "Echte traditionelle Thai-Massage, sehr empfehlenswert. "
+    f"Mit dem Code {CODE_REFERRAL} bekommst du 5 € auf deine erste Behandlung. "
+    f"Hier buchen: {FRESHA_LINK}"
 )
 
 
@@ -134,41 +142,41 @@ def extract_row(page: dict) -> dict | None:
     }
 
 
-def render_mail(env_jinja: Environment, vorname: str, email: str, bonus_token: str) -> tuple[str, str]:
+def render_mail(env_jinja: Environment, vorname: str, email: str) -> tuple[str, str]:
     """Return (subject, html)."""
     template = env_jinja.get_template("bonus_mail.html")
     wa_text = urllib.parse.quote(REFERRAL_TEXT)
     mail_subject = urllib.parse.quote("Empfehlung: Kanlaya Thai Massage Berlin")
     mail_body = urllib.parse.quote(REFERRAL_TEXT)
+    feedback_subject = urllib.parse.quote(f"Feedback von {vorname or 'einem Gast'}")
+    feedback_body = urllib.parse.quote(
+        f"Sawadee Khâ Kanlaya,\n\nmein Feedback zu meinem Besuch:\n\n"
+    )
+    mailto_feedback = f"mailto:{INFO_MAIL}?subject={feedback_subject}&body={feedback_body}"
+
     html = template.render(
         vorname=vorname or "lieber Gast",
-        bonus_link=BONUS_REDEEM_BASE + bonus_token,
+        code_self=CODE_SELF,
+        code_referral=CODE_REFERRAL,
+        fresha_link=FRESHA_LINK,
+        fresha_review_link=FRESHA_REVIEW_LINK,
         google_review_link=GOOGLE_REVIEW_LINK,
         portrait_url=PORTRAIT_URL,
         kanlaya_homepage=KANLAYA_HOMEPAGE,
+        instagram_url=INSTAGRAM_URL,
+        facebook_url=FACEBOOK_URL,
         whatsapp_share_link=f"https://wa.me/?text={wa_text}",
         mail_share_link=f"mailto:?subject={mail_subject}&body={mail_body}",
+        mailto_feedback=mailto_feedback,
         unsubscribe_link=UNSUBSCRIBE_LINK.format(email=email),
         datum_de=datetime.now(timezone.utc).astimezone().strftime("%d.%m.%Y"),
     )
-    subject = "Schön, dass Sie da waren — kleine Aufmerksamkeit von Kanlaya"
-    return subject, html
-
-
-def generate_bonus_token() -> str:
-    return secrets.token_urlsafe(16).replace("-", "").replace("_", "")[:16]
-
-
-def write_bonus_token(token_str: str, page_id: str, notion_token: str) -> None:
-    """Write Bonus-Token to Notion row so /buchen-bonus.php can look it up."""
-    body = {"properties": {"Bonus-Token": {"rich_text": [{"text": {"content": token_str}}]}}}
-    resp = requests.patch(
-        f"{NOTION_API}/pages/{page_id}",
-        headers=notion_headers(notion_token),
-        json=body,
-        timeout=15,
+    name = (vorname or "").strip()
+    subject = (
+        f"Sawadee Khâ {name} — 5 € geschenkt für Ihren nächsten Besuch"
+        if name else "Sawadee Khâ — 5 € geschenkt für Ihren nächsten Besuch"
     )
-    resp.raise_for_status()
+    return subject, html
 
 
 def send_brevo(api_key: str, sender_email: str, sender_name: str,
@@ -283,10 +291,7 @@ def main() -> int:
 
         recipient = test_recipient or row["email"]
         try:
-            bonus_token = generate_bonus_token()
-            if not dry_run:
-                write_bonus_token(bonus_token, row["page_id"], notion_token)
-            subject, html = render_mail(env_jinja, row["vorname"], row["email"], bonus_token)
+            subject, html = render_mail(env_jinja, row["vorname"], row["email"])
             if dry_run:
                 print(f"  DRY  {recipient} ({row['vorname']}) — would send '{subject}'")
             else:
