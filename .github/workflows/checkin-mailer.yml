@@ -27,7 +27,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 4
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+        continue-on-error: true
+
+      - name: Wait before retry
+        if: steps.checkout.outcome == 'failure'
+        run: sleep 60
+
+      - name: Checkout (retry after transient GitHub auth glitch)
+        if: steps.checkout.outcome == 'failure'
+        uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
