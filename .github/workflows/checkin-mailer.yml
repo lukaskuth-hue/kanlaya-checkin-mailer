@@ -17,6 +17,10 @@ on:
         description: "Min. Alter eines Check-ins, bevor Mail rausgeht (Default 90)"
         required: false
         default: "90"
+      test_send:
+        description: "Test-Send: Beispiel-Treuemails (Besuch 1/7/10) NUR an diese Adresse, kein Notion"
+        required: false
+        default: ""
 
 concurrency:
   group: checkin-mailer
@@ -57,4 +61,9 @@ jobs:
           DRY_RUN: ${{ github.event.inputs.dry_run == 'true' && '1' || '' }}
           FOLLOWUP_DELAY_MIN: ${{ github.event.inputs.delay_minutes || '90' }}
           EARLIEST_CHECKIN_ISO: ${{ secrets.EARLIEST_CHECKIN_ISO }}
-        run: python mailer.py
+        run: |
+          if [ -n "${{ github.event.inputs.test_send }}" ]; then
+            python mailer.py --test-send "${{ github.event.inputs.test_send }}"
+          else
+            python mailer.py
+          fi

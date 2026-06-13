@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Ihre Treuekarte — Kanlaya</title>
+<!--[if mso]>
+<style type="text/css">
+  body, table, td, p, h1, h2 { font-family: Helvetica, Arial, sans-serif !important; }
+  .serif { font-family: Georgia, 'Times New Roman', serif !important; }
+  .mono  { font-family: 'Courier New', Courier, monospace !important; }
+</style>
+<![endif]-->
+<style type="text/css">
+  body { margin:0 !important; padding:0 !important; background-color:#e5e0d4; }
+  table { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+  img { border:0; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; display:block; }
+  a { text-decoration:none; }
+  .serif { font-family: Georgia, 'Times New Roman', serif; }
+  .mono  { font-family: 'Courier New', Courier, monospace; }
+  @media only screen and (max-width: 620px) {
+    .container { width:100% !important; }
+    .px-m { padding-left:24px !important; padding-right:24px !important; }
+    .hl-display { font-size:34px !important; line-height:40px !important; }
+    .fluid-img { width:100% !important; height:auto !important; max-width:none !important; }
+    .stamp { width:30px !important; height:30px !important; font-size:12px !important; }
+    .stamp-pad { padding:0 3px !important; }
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background-color:#e5e0d4;">
+
+<!-- Preheader (versteckt) -->
+<div style="display:none;font-size:1px;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;mso-hide:all;">
+  {% if reward %}Geschafft — mit Ihrem {{ visit_count }}. Besuch haben Sie sich 50 % verdient.{% elif is_first %}Ihr erster Besuch ist gezählt — noch 9 bis 50 % auf Ihre Massage.{% else %}Ihr {{ visit_count }}. Besuch bei Kanlaya — nur noch {{ remaining }} bis 50 % auf Ihre Massage.{% endif %}
+</div>
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#e5e0d4;">
+  <tr>
+    <td align="center" style="padding:0;">
+
+      <table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;background-color:#ffffff;">
+
+        <!-- (1) Masthead -->
+        <tr>
+          <td bgcolor="#16301f" style="background-color:#16301f;background-image:linear-gradient(115deg,#0d2418 0%,#16301f 38%,#1F4030 68%,#2F5945 100%);padding:0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td class="px-m mono" style="padding:18px 36px;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#E8C281;">Kanlaya &middot; Berlin</td>
+                <td class="px-m mono" align="right" style="padding:18px 36px;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#E8C281;">Ihre Treuekarte &nbsp;·&nbsp; {{ datum_de }}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- (2) Portrait Hero -->
+        <tr>
+          <td style="background-color:#ffffff;padding:0;font-size:0;line-height:0;">
+            <img src="{{ portrait_url }}" alt="Kanlaya" width="600" class="fluid-img" style="display:block;width:100%;max-width:600px;height:auto;" />
+          </td>
+        </tr>
+
+        <!-- (3) Greeting -->
+        <tr>
+          <td style="background-color:#ffffff;padding:0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td class="px-m" style="padding:48px 56px 12px 56px;" align="left">
+                  <span style="font-family:'Courier New',Courier,monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#B58946;">สวัสดี &middot; Sawadee Khâ</span>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 28px 56px;">
+                  <h1 class="hl-display" style="margin:0;font-family:Helvetica,Arial,sans-serif;font-weight:300;font-size:42px;line-height:48px;letter-spacing:-1px;color:#1F4030;">
+                    Schön, dass Sie <em class="serif" style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:normal;color:#B58946;">{% if is_first %}da{% else %}wieder&nbsp;da{% endif %}</em> waren, {{ vorname }}.
+                  </h1>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 36px 56px;">
+                  <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:25px;color:#5a6760;">
+                    {% if reward %}Was für ein schöner Meilenstein: Mit Ihrem {{ visit_count }}. Besuch haben Sie sich Ihre 50 % verdient. Wir hoffen, Sie haben sie genossen — und freuen uns auf die nächste Runde.{% elif is_first %}Schön, dass Sie den Weg zu uns gefunden haben. Ab heute sammeln Sie mit jedem Besuch — und beim zehnten schenken wir Ihnen die Hälfte. Hier ist Ihr Start:{% else %}Dass Sie immer wieder den Weg zu uns finden, bedeutet uns viel. Als kleines Dankeschön sammeln Sie mit jedem Besuch — und beim zehnten schenken wir Ihnen die Hälfte. Hier ist Ihr aktueller Stand:{% endif %}
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- (4) TREUEKARTE — Hero-Panel -->
+        <tr>
+          <td class="px-m" style="background-color:#ffffff;padding:0 40px 40px 40px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#1F4030" style="background-color:#1F4030;background-image:linear-gradient(135deg,#16301f 0%,#2F5945 100%);border-radius:10px;">
+              <tr>
+                <td style="padding:28px 30px 8px 30px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td style="font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#E8C281;">Kanlaya Treuekarte</td>
+                      <td align="right" style="font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#E8C281;">10 = 50&nbsp;% off</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <!-- Stempel-Reihe (dynamisch) -->
+              <tr>
+                <td align="center" style="padding:18px 22px 6px 22px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+                    <tr>
+                      {% for i in range(1, 10) %}
+                      {% if i < pos %}
+                      <td class="stamp-pad" style="padding:0 4px;"><table cellpadding="0" cellspacing="0" border="0"><tr><td class="stamp" width="40" height="40" align="center" valign="middle" style="width:40px;height:40px;background-color:#B58946;border-radius:50%;font-family:Helvetica,Arial,sans-serif;font-size:16px;color:#16301f;">&#10003;</td></tr></table></td>
+                      {% elif i == pos %}
+                      <td class="stamp-pad" style="padding:0 4px;"><table cellpadding="0" cellspacing="0" border="0"><tr><td class="stamp" width="40" height="40" align="center" valign="middle" style="width:40px;height:40px;background-color:#1F4030;border:2px solid #E8C281;border-radius:50%;font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#E8C281;">{{ i }}</td></tr></table></td>
+                      {% else %}
+                      <td class="stamp-pad" style="padding:0 4px;"><table cellpadding="0" cellspacing="0" border="0"><tr><td class="stamp" width="40" height="40" align="center" valign="middle" style="width:40px;height:40px;background-color:#1F4030;border:1px solid #5C8068;border-radius:50%;font-family:Helvetica,Arial,sans-serif;font-size:15px;color:#7d9384;">{{ i }}</td></tr></table></td>
+                      {% endif %}
+                      {% endfor %}
+                      <!-- 10 = Preis -->
+                      <td class="stamp-pad" style="padding:0 2px 0 6px;"><table cellpadding="0" cellspacing="0" border="0"><tr><td class="stamp" width="48" height="48" align="center" valign="middle" style="width:48px;height:48px;background-color:#E8C281;background-image:linear-gradient(135deg,#E8C281,#B58946);border-radius:50%;font-family:Helvetica,Arial,sans-serif;font-weight:bold;font-size:13px;color:#16301f;{% if reward %}border:2px solid #ffffff;{% endif %}">50%</td></tr></table></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td align="center" style="padding:14px 30px 30px 30px;">
+                  <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:23px;color:#f3efe6;">
+                    {% if reward %}<strong style="color:#E8C281;">Geschafft!</strong> Ihr {{ visit_count }}. Besuch — Sie haben sich <strong style="color:#E8C281;">50&nbsp;%</strong> verdient. Ihre Karte startet frisch in die nächste Runde.{% elif is_first %}Ihr <strong style="color:#E8C281;">1. Besuch</strong> ist gezählt — noch <strong style="color:#E8C281;">9</strong> bis <strong style="color:#E8C281;">50&nbsp;%</strong> auf Ihre Massage.{% else %}Ihr <strong style="color:#E8C281;">{{ visit_count }}. Besuch</strong> — nur noch <strong style="color:#E8C281;">{{ remaining }}</strong> bis <strong style="color:#E8C281;">50&nbsp;%</strong> auf Ihre Massage.{% if remaining <= 3 %} Fast geschafft.{% endif %}{% endif %}
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- (5) CTA buchen -->
+        <tr>
+          <td class="px-m" style="background-color:#ffffff;padding:0 56px 52px 56px;" align="center">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td bgcolor="#1F4030" style="background-color:#1F4030;border-radius:2px;">
+                  <a href="{{ fresha_link }}" style="display:inline-block;padding:18px 46px;font-family:Helvetica,Arial,sans-serif;font-weight:400;font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#ffffff;text-decoration:none;">
+                    Nächsten Termin sichern
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr><td class="px-m" style="padding:0 56px;background-color:#ffffff;"><div style="border-top:1px solid #d9d3c6;font-size:1px;line-height:1px;height:1px;">&nbsp;</div></td></tr>
+
+        <!-- (6) Google-Bewertung -->
+        <tr>
+          <td class="px-m" style="background-color:#ffffff;padding:52px 56px 14px 56px;" align="center">
+            <p style="margin:0 0 10px 0;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#B58946;">Schon eine Bewertung dagelassen?</p>
+            <h2 class="hl-display" style="margin:0 0 22px 0;font-family:Helvetica,Arial,sans-serif;font-weight:300;font-size:28px;line-height:34px;letter-spacing:-0.5px;color:#1F4030;">
+              Falls nicht — <em class="serif" style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:normal;color:#B58946;">ein Klick</em> hilft uns sehr
+            </h2>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
+              <tr>
+                <td style="padding:0 5px;"><a href="{{ google_review_link }}" style="font-family:Arial,Helvetica,sans-serif;font-size:38px;line-height:38px;color:#B58946;">★</a></td>
+                <td style="padding:0 5px;"><a href="{{ google_review_link }}" style="font-family:Arial,Helvetica,sans-serif;font-size:38px;line-height:38px;color:#B58946;">★</a></td>
+                <td style="padding:0 5px;"><a href="{{ google_review_link }}" style="font-family:Arial,Helvetica,sans-serif;font-size:38px;line-height:38px;color:#B58946;">★</a></td>
+                <td style="padding:0 5px;"><a href="{{ google_review_link }}" style="font-family:Arial,Helvetica,sans-serif;font-size:38px;line-height:38px;color:#B58946;">★</a></td>
+                <td style="padding:0 5px;"><a href="{{ google_review_link }}" style="font-family:Arial,Helvetica,sans-serif;font-size:38px;line-height:38px;color:#B58946;">★</a></td>
+              </tr>
+            </table>
+            <p style="margin:18px 0 0 0;font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#9aa39d;">Auf Google bewerten</p>
+          </td>
+        </tr>
+
+        <tr><td class="px-m" style="padding:40px 56px 0 56px;background-color:#ffffff;"><div style="border-top:1px solid #d9d3c6;font-size:1px;line-height:1px;height:1px;">&nbsp;</div></td></tr>
+
+        <!-- (7) Empfehlungs-Block -->
+        <tr>
+          <td style="background-color:#faf6ec;padding:0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td class="px-m" style="padding:48px 56px 8px 56px;" align="center">
+                  <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#B58946;">Geteilte Ruhe ist doppelte Ruhe</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 18px 56px;" align="center">
+                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:26px;line-height:34px;color:#1F4030;max-width:440px;">
+                    Empfehlen Sie uns weiter — Ihr Freund bekommt 5 € geschenkt.
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 24px 56px;" align="center">
+                  <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:14px;line-height:22px;color:#5a6760;max-width:420px;">
+                    Geben Sie diesen Code an jemanden weiter, dem Sie etwas Gutes tun möchten:
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 28px 56px;" align="center">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td style="background-color:#ffffff;border:1px dashed #B58946;padding:14px 30px;font-family:'Courier New',Courier,monospace;font-size:18px;letter-spacing:4px;color:#1F4030;">
+                        {{ code_referral }}
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 12px 56px;" align="center">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td style="padding:0 8px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+                          <td bgcolor="#25D366" style="background-color:#25D366;border-radius:2px;">
+                            <a href="{{ whatsapp_share_link }}" style="display:inline-block;padding:14px 24px;font-family:Helvetica,Arial,sans-serif;font-weight:500;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff;text-decoration:none;">WhatsApp teilen</a>
+                          </td>
+                        </tr></table>
+                      </td>
+                      <td style="padding:0 8px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+                          <td bgcolor="#1F4030" style="background-color:#1F4030;border-radius:2px;">
+                            <a href="{{ mail_share_link }}" style="display:inline-block;padding:14px 24px;font-family:Helvetica,Arial,sans-serif;font-weight:500;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff;text-decoration:none;">Per Mail</a>
+                          </td>
+                        </tr></table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 48px 56px;" align="center">
+                  <p style="margin:0;font-family:'Courier New',Courier,monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:#9aa39d;">
+                    5 € Rabatt mit Code {{ code_referral }} bei der ersten Buchung
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- (8) Folge uns -->
+        <tr>
+          <td class="px-m" style="background-color:#ffffff;padding:56px 56px 32px 56px;" align="center">
+            <p style="margin:0 0 10px 0;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#B58946;">Bleiben Sie verbunden</p>
+            <p style="margin:0 0 24px 0;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:20px;line-height:28px;color:#1F4030;">
+              Folgen Sie uns — keine News verpassen.
+            </p>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="padding:0 6px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+                    <td bgcolor="#1F4030" style="background-color:#1F4030;border:1px solid #1F4030;border-radius:2px;">
+                      <a href="{{ instagram_url }}" style="display:inline-block;padding:12px 22px;font-family:Helvetica,Arial,sans-serif;font-weight:500;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff;text-decoration:none;">Instagram</a>
+                    </td>
+                  </tr></table>
+                </td>
+                <td style="padding:0 6px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+                    <td bgcolor="#ffffff" style="background-color:#ffffff;border:1px solid #1F4030;border-radius:2px;">
+                      <a href="{{ facebook_url }}" style="display:inline-block;padding:12px 22px;font-family:Helvetica,Arial,sans-serif;font-weight:500;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#1F4030;text-decoration:none;">Facebook</a>
+                    </td>
+                  </tr></table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- (9) Signature -->
+        <tr>
+          <td class="px-m" style="background-color:#ffffff;padding:24px 56px 32px 56px;">
+            <p style="margin:0;font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:25px;color:#5a6760;">Bis bald,</p>
+            <p style="margin:6px 0 0 0;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:28px;line-height:32px;color:#1F4030;">Kanlaya</p>
+          </td>
+        </tr>
+
+        <!-- (10) Footer -->
+        <tr>
+          <td style="background-color:#16301f;padding:0;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td class="px-m" style="padding:36px 56px 12px 56px;font-family:'Courier New',Courier,monospace;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:#E8C281;" align="center">
+                  Kanlaya Thai Massage &middot; Spürbare Wirkung
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 12px 56px;font-family:Helvetica,Arial,sans-serif;font-size:12px;line-height:20px;color:#9aa39d;" align="center">
+                  Friedbergstraße 7 · 14057 Berlin-Charlottenburg
+                </td>
+              </tr>
+              <tr>
+                <td class="px-m" style="padding:0 56px 36px 56px;" align="center">
+                  <a href="{{ unsubscribe_link }}" style="font-family:Helvetica,Arial,sans-serif;font-size:11px;color:#9aa39d;text-decoration:underline;">Keine weiteren Mails von Kanlaya</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+      </table>
+
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
