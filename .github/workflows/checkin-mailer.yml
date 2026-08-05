@@ -26,6 +26,9 @@ concurrency:
   group: checkin-mailer
   cancel-in-progress: false
 
+permissions:
+  contents: write
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -66,4 +69,25 @@ jobs:
             python mailer.py --test-send "${{ github.event.inputs.test_send }}"
           else
             python mailer.py
+          fi
+
+      # Verhindert, dass GitHub den Scheduled-Workflow nach 60 Tagen ohne
+      # Repo-Aktivitaet automatisch deaktiviert. Macht NUR dann einen leeren
+      # Commit, wenn der letzte Commit aelter als 50 Tage ist. Laeuft nur auf
+      # Schedule-Runs und darf den Mailer-Status nie beeinflussen.
+      - name: Keepalive (Auto-Disable verhindern)
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          last=$(git log -1 --format=%ct)
+          now=$(date +%s)
+          days=$(( (now - last) / 86400 ))
+          echo "Tage seit letztem Commit: $days"
+          if [ "$days" -ge 50 ]; then
+            git commit --allow-empty -m "chore: keepalive – Scheduled-Workflow aktiv halten"
+            git push
+          else
+            echo "Repo aktiv genug ($days < 50 Tage) – kein Keepalive-Commit noetig."
           fi
